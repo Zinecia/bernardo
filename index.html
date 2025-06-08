@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Slender Man Video Page</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+<style>
+body {
+background: url('https://image.tmdb.org/t/p/w500//4JNggqfyJWREqb0enzpUMbvIniV.jpg') no-repeat center center fixed;
+background-size: cover;
+}
+.overlay {
+background-color: rgba(18, 18, 18, 0.85);
+}
+</style>
+</head>
+<body class="text-white font-sans">
+<div class="overlay min-h-screen">
+<div class="max-w-4xl mx-auto p-4">
+<!-- Iframe Video -->
+<div class="rounded-md overflow-hidden relative aspect-video bg-black">
+<iframe class="w-full h-full" src="https://lzrdrgz01.github.io/web?player=jwpl&provider=rand&format=video%2Fmp4&link=https://1a-1791.com/video/fwe1/0f/s8/2/c/g/x/U/cgxUx.aaa.mp4" title="" frameborder="0" allowfullscreen></iframe>
+</div>
+
+<!-- Movie Info Section -->
+<div class="flex space-x-4 mt-4 bg-[#1a1a1a] p-4 rounded-md" data-id="__ponle_el_id_llamandolo__"> <!-- Aquí pones el id TMDB -->
+<img alt="Soul movie poster showing a tall, thin shadowy figure with elongated limbs on a foggy background" class="rounded-lg flex-shrink-0" height="140" src="https://image.tmdb.org/t/p/w500//4Vi5VEkVWdqJgbG3pGdREFOwZdJ.jpg" width="100"/>
+<div class="flex-1 text-white">
+<h3 class="text-xl font-semibold">Bernardo y Bianca</h3>
+<p class="text-gray-300 italic text-sm">Publicado por: Lz-1</p>
+<div class="flex flex-wrap items-center space-x-2 text-xs text-gray-400 mt-1">
+<span>United States of America</span>
+<span id="info-hours"></span>
+<span id="info-minutes">minutos: 74</span>
+<span>Año: 1977</span>
+</div>
+<!-- Rating -->
+<div class="flex items-center mt-3 space-x-3">
+<div id="rating-value" class="bg-[#2a2a2a] rounded-md px-3 py-1 text-lg font-semibold text-white">6.8</div>
+<div id="star-container" class="flex space-x-1 text-yellow-400 text-lg"></div>
+</div>
+<!-- Genres -->
+<div class="flex space-x-6 text-xs text-gray-400 mt-3">
+<span>Fantasía,Familia,Animación,</span>
+</div>
+<!-- Botón Favoritos -->
+<button id="fav-btn" class="mt-4 bg-gray-700 hover:bg-red-600 transition-colors text-white px-4 py-2 rounded text-sm font-semibold flex items-center gap-2">
+<i class="far fa-heart"></i> Favoritos
+</button>
+</div>
+</div>
+
+<!-- Botones -->
+<div class="flex space-x-2 mt-4 relative">
+<!-- Botón Info -->
+<button id="info-btn" class="bg-red-600 text-white px-4 py-2 rounded text-sm font-semibold" type="button">
+Info
+</button>
+
+<!-- Botón Reparto -->
+<button id="reparto-btn" class="bg-gray-700 text-gray-400 px-4 py-2 rounded text-sm font-semibold" type="button">
+Reparto
+</button>
+</div>
+
+<!-- Contenido de Reparto -->
+<div id="reparto-section" class="hidden mt-4 bg-[#1a1a1a] p-4 rounded-md grid grid-cols-2 gap-2">
+<!--BOTONES-->
+</div>
+
+<!-- Sinopsis -->
+<div id="sinopsis" class="mt-4 bg-[#1a1a1a] p-4 rounded-md">
+<h4 class="text-white text-lg font-semibold mb-2">Sinopsis</h4>
+<p class="text-gray-300 text-sm leading-relaxed">
+Una niña huérfana que ha sido secuestrada envía una nota dentro de una botella pidiendo ayuda. Bernardo y Bianca, dos valientes ratones, miembros de la Sociedad Internacional de Rescate, reciben el mensaje que los llevará al peligroso «Pantano del Diablo». Allí, ayudados por la libélula Evinrude y los habitantes del pantano, vivirán un sinfín de emocionantes aventuras luchando contra la malvada Madame Medusa
+</p>
+</div>
+</div>
+</div>
+<!-- JS para estrellas dinámicas y favoritos -->
+<script>
+const rating = 6.8;
+const starContainer = document.getElementById('star-container');
+const fullStars = Math.floor(rating / 2);
+const halfStar = rating % 2 >= 1;
+
+for (let i = 0; i < 5; i++) {
+const star = document.createElement('i');
+if (i < fullStars) {
+star.className = 'fas fa-star text-yellow-400';
+} else if (i === fullStars && halfStar) {
+star.className = 'fas fa-star-half-alt text-yellow-400';
+} else {
+star.className = 'fas fa-star text-gray-400';
+}
+starContainer.appendChild(star);
+}
+
+document.getElementById('rating-value').innerText = rating.toFixed(1);
+
+const infoBtn = document.getElementById('info-btn');
+const repartoBtn = document.getElementById('reparto-btn');
+const sinopsis = document.getElementById('sinopsis');
+const repartoSection = document.getElementById('reparto-section');
+
+function setActive(button) {
+infoBtn.classList.remove('bg-red-600', 'text-white');
+infoBtn.classList.add('bg-gray-700', 'text-gray-400');
+
+repartoBtn.classList.remove('bg-red-600', 'text-white');
+repartoBtn.classList.add('bg-gray-700', 'text-gray-400');
+
+button.classList.remove('bg-gray-700', 'text-gray-400');
+button.classList.add('bg-red-600', 'text-white');
+}
+
+infoBtn.addEventListener('click', () => {
+setActive(infoBtn);
+sinopsis.classList.remove('hidden');
+repartoSection.classList.add('hidden');
+});
+
+repartoBtn.addEventListener('click', () => {
+setActive(repartoBtn);
+sinopsis.classList.add('hidden');
+repartoSection.classList.remove('hidden');
+});
+
+// Favoritos
+const favBtn = document.getElementById('fav-btn');
+const movieSection = document.querySelector('[data-id]');
+const movieId = movieSection.getAttribute('data-id');
+const movieTitle = movieSection.querySelector('h3').innerText;
+const moviePoster = movieSection.querySelector('img').src;
+
+function updateFavButton() {
+if (localStorage.getItem('fav-' + movieId)) {
+favBtn.classList.remove('bg-gray-700');
+favBtn.classList.add('bg-red-600');
+favBtn.innerHTML = '<i class="fas fa-heart"></i> Favorito';
+} else {
+favBtn.classList.remove('bg-red-600');
+favBtn.classList.add('bg-gray-700');
+favBtn.innerHTML = '<i class="far fa-heart"></i> Favoritos';
+}
+}
+
+favBtn.addEventListener('click', () => {
+if (localStorage.getItem('fav-' + movieId)) {
+localStorage.removeItem('fav-' + movieId);
+} else {
+// Guardamos título, poster e id en JSON
+localStorage.setItem('fav-' + movieId, JSON.stringify({
+id: movieId,
+title: movieTitle,
+poster: moviePoster
+}));
+}
+updateFavButton();
+});
+
+// Al cargar la página
+updateFavButton();
+
+function normalizarCategoria(nombre) {
+return nombre.normalize("NFD")
+.replace(/[̀-ͯ]/g, "") // Quita tildes
+.replace(/s+/g, '') // Quita espacios
+.toLowerCase(); // Minúsculas
+}
+
+function guardarPeliculasPorCategoria(pelicula, categorias) {
+var guardadas = localStorage.getItem('peliculasPorCategoria');
+var peliculasPorCategoria = guardadas ? JSON.parse(guardadas) : {};
+
+for (var i = 0; i < categorias.length; i++) {
+var cat = categorias[i];
+if (!peliculasPorCategoria[cat]) {
+peliculasPorCategoria[cat] = [];
+}
+
+// Evitar duplicados por título
+var existe = false;
+for (var j = 0; j < peliculasPorCategoria[cat].length; j++) {
+if (peliculasPorCategoria[cat][j].titulo === pelicula.titulo) {
+existe = true;
+break;
+}
+}
+
+if (!existe) {
+peliculasPorCategoria[cat].push(pelicula);
+}
+}
+
+localStorage.setItem('peliculasPorCategoria', JSON.stringify(peliculasPorCategoria));
+}
+
+// Esta parte debes colocarla después de haber cargado 'datos' desde la API
+var peliculaParaCategorias = {
+titulo: datos.title,
+poster: "https://image.tmdb.org/t/p/w500" + datos.poster_path,
+link: window.location.href
+};
+
+var categoriasOriginales = [];
+for (var i = 0; i < datos.genres.length; i++) {
+categoriasOriginales.push(normalizarCategoria(datos.genres[i].name));
+}
+
+// Agrega 'movie' si no está
+if (categoriasOriginales.indexOf('movie') === -1) {
+categoriasOriginales.push('movie');
+}
+
+guardarPeliculasPorCategoria(peliculaParaCategorias, categoriasOriginales);
+</script>
+
+</body>
+</html>
