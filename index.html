@@ -164,58 +164,7 @@ updateFavButton();
 // Al cargar la página
 updateFavButton();
 
-function normalizarCategoria(nombre) {
-return nombre.normalize("NFD")
-.replace(/[̀-ͯ]/g, "") // Quita tildes
-.replace(/s+/g, '') // Quita espacios
-.toLowerCase(); // Minúsculas
-}
 
-function guardarPeliculasPorCategoria(pelicula, categorias) {
-var guardadas = localStorage.getItem('peliculasPorCategoria');
-var peliculasPorCategoria = guardadas ? JSON.parse(guardadas) : {};
-
-for (var i = 0; i < categorias.length; i++) {
-var cat = categorias[i];
-if (!peliculasPorCategoria[cat]) {
-peliculasPorCategoria[cat] = [];
-}
-
-// Evitar duplicados por título
-var existe = false;
-for (var j = 0; j < peliculasPorCategoria[cat].length; j++) {
-if (peliculasPorCategoria[cat][j].titulo === pelicula.titulo) {
-existe = true;
-break;
-}
-}
-
-if (!existe) {
-peliculasPorCategoria[cat].push(pelicula);
-}
-}
-
-localStorage.setItem('peliculasPorCategoria', JSON.stringify(peliculasPorCategoria));
-}
-
-// Esta parte debes colocarla después de haber cargado 'datos' desde la API
-var peliculaParaCategorias = {
-titulo: datos.title,
-poster: "https://image.tmdb.org/t/p/w500" + datos.poster_path,
-link: window.location.href
-};
-
-var categoriasOriginales = [];
-for (var i = 0; i < datos.genres.length; i++) {
-categoriasOriginales.push(normalizarCategoria(datos.genres[i].name));
-}
-
-// Agrega 'movie' si no está
-if (categoriasOriginales.indexOf('movie') === -1) {
-categoriasOriginales.push('movie');
-}
-
-guardarPeliculasPorCategoria(peliculaParaCategorias, categoriasOriginales);
 </script>
 
 </body>
